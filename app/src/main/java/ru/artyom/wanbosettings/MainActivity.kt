@@ -42,7 +42,7 @@ class MainActivity : Activity() {
                     cn(tvSettings, ".network.WifiActivity"))),
                 Tile("ПРОЕКТОР", R.drawable.ic_projector, listOf(
                     cn(wanbo, ".activity.ProjectModeActivity"), wanboMenu)),
-                Tile("ВХОДНОЙ\nИСТОЧНИК", R.drawable.ic_input, listOf(
+                Tile("ИСТОЧНИК", R.drawable.ic_input, listOf(
                     cn("com.mediatek.wwtv.tvcenter", ".nav.TurnkeyUiMainActivity"))),
                 Tile("МЕДИАЦЕНТР", R.drawable.ic_folder, listOf(
                     cn("com.jrm.localmm", ".ui.main.MainActivity"))),
@@ -55,13 +55,13 @@ class MainActivity : Activity() {
                 Tile("BLUETOOTH", R.drawable.ic_bluetooth, listOf(
                     cn(tvSettings, ".network.BluetoothActivity"),
                     cn(tvSettings, ".accessories.AddAccessoryActivity"))),
-                Tile("ИСТОЧНИК\nПРИ ВКЛЮЧЕНИИ", R.drawable.ic_power, listOf(
+                Tile("ПРИ ВКЛЮЧЕНИИ", R.drawable.ic_power, listOf(
                     cn(wanbo, ".activity.BootSourceActivity"), wanboMenu)),
                 Tile("ЯЗЫК", R.drawable.ic_language, listOf(
                     cn(tvSettings, ".common.LanguageActivity"))),
                 Tile("СИСТЕМА", R.drawable.ic_system, listOf(
                     cn(tvSettings, ".MainActivity"))),
-                Tile("ОЧИСТКА\nПАМЯТИ", R.drawable.ic_clean, listOf(
+                Tile("ОЧИСТКА", R.drawable.ic_clean, listOf(
                     cn("com.memoryclean.chijimlee", ".activity.MainActivity"),
                     cn("com.memoryclean.chijimlee", ".activity.BootActivity"))),
             ),
@@ -155,8 +155,14 @@ class MainActivity : Activity() {
             setTextColor(0xFFFFFFFF.toInt())
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
             typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
-            setPadding(0, dp(14), 0, 0)
-        })
+            letterSpacing = 0.04f
+            maxLines = 1
+            isSingleLine = true
+            ellipsize = android.text.TextUtils.TruncateAt.END
+            setPadding(0, dp(18), 0, 0)
+        }, LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT))
         box.setOnFocusChangeListener { v, hasFocus ->
             val s = if (hasFocus) 1.07f else 1f
             v.animate().scaleX(s).scaleY(s).setDuration(120).start()

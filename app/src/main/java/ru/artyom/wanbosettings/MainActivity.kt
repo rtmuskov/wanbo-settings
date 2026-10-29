@@ -26,6 +26,7 @@ class MainActivity : Activity() {
         val title: String,
         val icon: Int,
         val targets: List<ComponentName>,
+        val longPress: List<ComponentName> = emptyList(),
     )
 
     private fun cn(pkg: String, cls: String) =
@@ -59,8 +60,12 @@ class MainActivity : Activity() {
                     cn(wanbo, ".activity.BootSourceActivity"), wanboMenu)),
                 Tile("ЯЗЫК", R.drawable.ic_language, listOf(
                     cn(tvSettings, ".common.LanguageActivity"))),
-                Tile("СИСТЕМА", R.drawable.ic_system, listOf(
-                    cn(tvSettings, ".MainActivity"))),
+                // Главный экран встроенных настроек отключён, чтобы кнопка «Настройки»
+                // открывала это приложение. Долгое нажатие — «Для разработчиков».
+                Tile("ДАТА И ВРЕМЯ", R.drawable.ic_time, listOf(
+                    cn(tvSettings, ".time.TimeActivity")),
+                    longPress = listOf(
+                        cn(tvSettings, ".system.development.DevelopmentActivity"))),
                 Tile("ОЧИСТКА", R.drawable.ic_clean, listOf(
                     cn("com.memoryclean.chijimlee", ".activity.MainActivity"),
                     cn("com.memoryclean.chijimlee", ".activity.BootActivity"))),
@@ -167,12 +172,15 @@ class MainActivity : Activity() {
             val s = if (hasFocus) 1.07f else 1f
             v.animate().scaleX(s).scaleY(s).setDuration(120).start()
         }
-        box.setOnClickListener { open(tile) }
+        box.setOnClickListener { open(tile.title, tile.targets) }
+        if (tile.longPress.isNotEmpty()) {
+            box.setOnLongClickListener { open(tile.title, tile.longPress); true }
+        }
         return box
     }
 
-    private fun open(tile: Tile) {
-        for (target in tile.targets) {
+    private fun open(title: String, targets: List<ComponentName>) {
+        for (target in targets) {
             try {
                 startActivity(Intent().setComponent(target))
                 return
@@ -182,7 +190,7 @@ class MainActivity : Activity() {
                 // экран закрыт для сторонних приложений — пробуем следующий
             }
         }
-        Toast.makeText(this, "Экран «${tile.title.replace('\n', ' ')}» недоступен",
+        Toast.makeText(this, "Экран «$title» недоступен",
             Toast.LENGTH_SHORT).show()
     }
 }

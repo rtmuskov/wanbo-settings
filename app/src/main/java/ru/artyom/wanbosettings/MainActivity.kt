@@ -60,9 +60,9 @@ class MainActivity : Activity() {
                     cn(wanbo, ".activity.BootSourceActivity"), wanboMenu)),
                 Tile("ЯЗЫК", R.drawable.ic_language, listOf(
                     cn(tvSettings, ".common.LanguageActivity"))),
-                // Главный экран встроенных настроек отключён, чтобы кнопка «Настройки»
-                // открывала это приложение. Долгое нажатие — «Для разработчиков».
-                Tile("ДАТА И ВРЕМЯ", R.drawable.ic_time, listOf(
+                // Меню Wanbo на 4 плитки. Долгое нажатие — «Для разработчиков».
+                Tile("СИСТЕМА", R.drawable.ic_system, listOf(
+                    cn(tvSettings, ".MainActivity"),
                     cn(tvSettings, ".time.TimeActivity")),
                     longPress = listOf(
                         cn(tvSettings, ".system.development.DevelopmentActivity"))),

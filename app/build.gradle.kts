@@ -12,8 +12,8 @@ android {
         minSdk = 23
         // Проектор на Android 9: target 28 избавляет от ограничений видимости пакетов
         targetSdk = 28
-        versionCode = 4
-        versionName = "1.3"
+        versionCode = 5
+        versionName = "1.4"
     }
 
     buildTypes {
